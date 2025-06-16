@@ -1,5 +1,8 @@
 # fs-routes-next
 
+[![npm version](https://badge.fury.io/js/fs-routes-next.svg)](https://badge.fury.io/js/fs-routes-next)
+[![npm downloads](https://img.shields.io/npm/dm/fs-routes-next.svg)](https://www.npmjs.com/package/fs-routes-next)
+
 Enhanced file-based routing library for React Router 7+ with support for nested directories, automatic layout inheritance, and layout overrides at any nesting level.
 
 ## Features
@@ -11,6 +14,24 @@ Enhanced file-based routing library for React Router 7+ with support for nested 
 - ✅ **Conflict Resolution**: Intelligent handling of path conflicts and unique route ID generation
 - ✅ **TypeScript Support**: Fully typed with proper interfaces and type safety
 - ✅ **Modular Architecture**: Clean separation of concerns across multiple modules
+
+## Installation
+
+```bash
+npm install fs-routes-next
+```
+
+or
+
+```bash
+yarn add fs-routes-next
+```
+
+or
+
+```bash
+pnpm add fs-routes-next
+```
 
 ## Module Structure
 
