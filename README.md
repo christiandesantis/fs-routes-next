@@ -59,8 +59,6 @@ export default (await flatRoutes()) satisfies RouteConfig;
 ```
 routes/
 ├── _app.tsx                    # Main app layout
-├── _auth.tsx                   # Auth layout  
-├── _app.dashboard.tsx          # Dashboard route with app layout
 ├── _app.example/               # Nested example routes
 │   ├── _another.tsx           # Layout override (only for another.tsx)
 │   ├── another.tsx            # Uses _another.tsx layout
