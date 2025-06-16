@@ -28,9 +28,9 @@ fs-routes-next/
 ```typescript
 // app/routes.ts
 import type { RouteConfig } from "@react-router/dev/routes";
-import { enhancedFlatRoutes } from "./lib/fs-routes-next";
+import { flatRoutes } from "fs-routes-next";
 
-export default (await enhancedFlatRoutes()) satisfies RouteConfig;
+export default (await flatRoutes()) satisfies RouteConfig;
 ```
 
 ## Supported File Structure
