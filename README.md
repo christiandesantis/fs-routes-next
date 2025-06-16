@@ -1,6 +1,6 @@
 # fs-routes-next
 
-A modular, enhanced file-based routing library for React Router 7+ with support for nested directories, automatic layout inheritance, and layout overrides at any nesting level.
+Enhanced file-based routing library for React Router 7+ with support for nested directories, automatic layout inheritance, and layout overrides at any nesting level.
 
 ## Features
 
