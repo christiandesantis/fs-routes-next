@@ -58,24 +58,24 @@ export default (await flatRoutes()) satisfies RouteConfig;
 
 ```
 routes/
-├── _app.tsx                    # Main app layout
-├── _app.example/               # Nested example routes
-│   ├── _another.tsx           # Layout override (only for another.tsx)
-│   ├── another.tsx            # Uses _another.tsx layout
-│   ├── index.tsx              # Uses default app layout
-│   ├── other.tsx              # Uses default app layout
-│   └── other/
-│       ├── _final.tsx         # Nested layout override
-│       ├── index.tsx          # Uses default app layout
-│       └── final/
-│           └── index.tsx      # Uses _final.tsx layout
+├── _app.tsx                   # Main app layout → "/"
+├── _app.dashboard/            # Dashboard routes
+│   ├── _users.tsx             # Layout override (only for users.tsx)
+│   ├── users.tsx              # Uses _users.tsx layout → "/dashboard/users"
+│   ├── index.tsx              # Uses default app layout → "/dashboard"
+│   ├── settings.tsx           # Uses default app layout → "/dashboard/settings"
+│   └── reports/
+│       ├── _analytics.tsx     # Nested layout override → "/dashboard/reports"
+│       ├── index.tsx          # Uses default app layout → "/dashboard/reports"
+│       └── analytics/
+│           └── index.tsx      # Uses _analytics.tsx layout → "/dashboard/reports/analytics"
 ```
 
 ## Route Generation
 
-- `routes/_app.example/another.tsx` → `/example/another` (with `_another.tsx` layout)
-- `routes/_app.example/other.tsx` → `/example/other` (with default app layout)
-- `routes/_app.example/other/final/index.tsx` → `/example/other/final` (with `_final.tsx` layout)
+- `routes/_app.dashboard/users.tsx` → `/dashboard/users` (with `_users.tsx` layout)
+- `routes/_app.dashboard/settings.tsx` → `/dashboard/settings` (with default app layout)
+- `routes/_app.dashboard/reports/analytics/index.tsx` → `/dashboard/reports/analytics` (with `_analytics.tsx` layout)
 
 ## Key Benefits
 
