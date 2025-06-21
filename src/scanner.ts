@@ -41,9 +41,21 @@ export const scanDirectory = (
 						isLayout: false,
 					});
 				} else {
-					const routePath = relativePath
-						? `${relativePath}/${routeName}`
-						: routeName;
+					// Handle parameter routes (files starting with $)
+					let routePath: string;
+					if (routeName.startsWith("$")) {
+						// Convert $param to :param for React Router
+						const paramName = routeName.slice(1); // Remove the $
+						const paramRoute = `:${paramName}`;
+						routePath = relativePath
+							? `${relativePath}/${paramRoute}`
+							: paramRoute;
+					} else {
+						routePath = relativePath
+							? `${relativePath}/${routeName}`
+							: routeName;
+					}
+
 					routes.push({
 						path: routePath,
 						file: join(relativePath, item).replace(/\\/g, "/"),
