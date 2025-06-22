@@ -6,12 +6,37 @@ on:
       - main
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:run
+
+      - name: Build package
+        run: npm run build
+
+      - name: Check TypeScript
+        run: npx tsc --noEmit
+
   publish:
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -56,7 +81,7 @@ jobs:
         run: |
           # Get the most recent commit message
           COMMIT_MSG=$(git log --format=%B -n 1)
-          
+
           # Check if this is a merge commit and extract PR title if so
           if echo "$COMMIT_MSG" | grep -q "^Merge pull request"; then
             # Extract the PR title from GitHub API using the PR number
@@ -69,9 +94,9 @@ jobs:
               fi
             fi
           fi
-          
+
           echo "Analyzing commit message: $COMMIT_MSG"
-          
+
           if echo "$COMMIT_MSG" | grep -q "\[major\]" || echo "$COMMIT_MSG" | grep -q "BREAKING CHANGE"; then
             echo "Bumping major version"
             npm version major --no-git-tag-version
@@ -85,11 +110,11 @@ jobs:
             echo "Bumping patch version (default)"
             npm version patch --no-git-tag-version
           fi
-          
+
           # Get the new version
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          
+
           # Commit the version change
           git add package.json
           git commit -m "chore: bump version to $NEW_VERSION [skip ci]"
