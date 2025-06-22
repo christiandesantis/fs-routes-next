@@ -126,6 +126,23 @@ git commit -m "feat: redesign API with BREAKING CHANGE"
 git commit -m "refactor: simplify API [major]"
 ```
 
+### Code Formatting & Linting
+
+This project uses **Biome.js** for code formatting and linting. Before submitting any pull request, please ensure your code is properly formatted:
+
+```bash
+# Format and fix all issues automatically
+npm run fix
+
+# Or use Biome commands directly
+npx biome check --write .  # Same as npm run fix
+npx biome format --write . # Format only
+npx biome lint .           # Lint only
+npx biome check .          # Check without fixing
+```
+
+**⚠️ Important**: All PRs must pass formatting and linting checks. Please run `npm run fix` before committing your changes.
+
 ### Setup for Contributors
 
 To enable automated publishing, the repository needs:
