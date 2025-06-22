@@ -1,5 +1,5 @@
-import { route } from "@react-router/dev/routes";
 import type { RouteConfigEntry } from "@react-router/dev/routes";
+import { route } from "@react-router/dev/routes";
 import type { LayoutInfo, ProcessedRoute } from "./types";
 import { findLayoutForRoute, generateRouteId } from "./utils";
 
