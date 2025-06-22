@@ -1,0 +1,83 @@
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Check if should skip publish
+        id: check_skip
+        run: |
+          if git log --format=%B -n 1 | grep -q "\[skip ci\]"; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Bump version
+        id: version
+        if: steps.check_skip.outputs.skip == 'false'
+        run: |
+          # Check if this is a major, minor, or patch change based on commit messages
+          COMMIT_MSG=$(git log --format=%B -n 1)
+          
+          if echo "$COMMIT_MSG" | grep -q "\[major\]" || echo "$COMMIT_MSG" | grep -q "BREAKING CHANGE"; then
+            echo "Bumping major version"
+            npm version major --no-git-tag-version
+          elif echo "$COMMIT_MSG" | grep -q "\[minor\]" || echo "$COMMIT_MSG" | grep -q "feat:"; then
+            echo "Bumping minor version"
+            npm version minor --no-git-tag-version
+          else
+            echo "Bumping patch version"
+            npm version patch --no-git-tag-version
+          fi
+          
+          # Get the new version
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          
+          # Commit the version change
+          git add package.json
+          git commit -m "chore: bump version to $NEW_VERSION [skip ci]"
+          git push origin main
+
+      - name: Build package
+        if: steps.check_skip.outputs.skip == 'false'
+        run: npm run build
+
+      - name: Publish to npm
+        if: steps.check_skip.outputs.skip == 'false'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create and push tag
+        if: steps.check_skip.outputs.skip == 'false'
+        run: |
+          git tag v${{ steps.version.outputs.new_version }}
+          git push origin v${{ steps.version.outputs.new_version }}
