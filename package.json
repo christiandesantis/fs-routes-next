@@ -1,60 +1,64 @@
 {
-  "name": "fs-routes-next",
-  "version": "1.1.2",
-  "description": "Enhanced file-based routing for React Router 7+ with nested directories, automatic layout inheritance, and layout overrides",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "prepublishOnly": "npm run build",
-    "test": "echo \"No tests yet\" && exit 0"
-  },
-  "keywords": [
-    "react-router",
-    "file-based-routing",
-    "nested-routes",
-    "layout-inheritance",
-    "typescript"
-  ],
-  "author": "Christian De Santis <christian@constech.dev>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/christiandesantis/fs-routes-next.git"
-  },
-  "homepage": "https://github.com/christiandesantis/fs-routes-next#readme",
-  "bugs": {
-    "url": "https://github.com/christiandesantis/fs-routes-next/issues"
-  },
-  "peerDependencies": {
-    "@react-router/dev": ">=7.5.1",
-    "@react-router/fs-routes": ">=7.5.1"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.0.4",
-    "@react-router/dev": "^7.5.1",
-    "@react-router/fs-routes": "^7.5.1",
-    "@types/node": "^24.0.1",
-    "tsup": "^8.0.0",
-    "typescript": "^5.0.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "fs-routes-next",
+	"version": "1.1.2",
+	"description": "Enhanced file-based routing for React Router 7+ with nested directories, automatic layout inheritance, and layout overrides",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"prepublishOnly": "npm run build",
+		"test": "echo \"No tests yet\" && exit 0",
+		"format": "biome format --write .",
+		"lint": "biome lint .",
+		"check": "biome check .",
+		"fix": "biome check --write ."
+	},
+	"keywords": [
+		"react-router",
+		"file-based-routing",
+		"nested-routes",
+		"layout-inheritance",
+		"typescript"
+	],
+	"author": "Christian De Santis <christian@constech.dev>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/christiandesantis/fs-routes-next.git"
+	},
+	"homepage": "https://github.com/christiandesantis/fs-routes-next#readme",
+	"bugs": {
+		"url": "https://github.com/christiandesantis/fs-routes-next/issues"
+	},
+	"peerDependencies": {
+		"@react-router/dev": ">=7.5.1",
+		"@react-router/fs-routes": ">=7.5.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.0.4",
+		"@react-router/dev": "^7.5.1",
+		"@react-router/fs-routes": "^7.5.1",
+		"@types/node": "^24.0.1",
+		"tsup": "^8.0.0",
+		"typescript": "^5.0.0"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

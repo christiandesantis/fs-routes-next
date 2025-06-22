@@ -1,6 +1,6 @@
-import { join } from "path";
 import type { RouteConfig, RouteConfigEntry } from "@react-router/dev/routes";
 import { flatRoutes } from "@react-router/fs-routes";
+import { join } from "path";
 
 import { buildLayoutHierarchy } from "./layout-resolver";
 import { scanNestedRoutes } from "./scanner";

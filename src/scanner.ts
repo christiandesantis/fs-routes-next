@@ -67,7 +67,7 @@ export const scanDirectory = (
 				routes.push(...scanDirectory(itemPath, subPath));
 			}
 		}
-	} catch (error) {
+	} catch (_error) {
 		// Can't read directory, skip silently
 	}
 
