@@ -93,3 +93,56 @@ The library has been thoroughly tested with:
 - Path conflict resolution
 - Route inheritance patterns
 - Index vs non-index route handling
+
+## Development & Publishing
+
+This package uses automated publishing via GitHub Actions. When changes are pushed to the `main` branch, the package is automatically:
+
+1. **Version bumped** based on commit message conventions:
+   - `feat:` or `[minor]` → Minor version bump (new features)
+   - `BREAKING CHANGE` or `[major]` → Major version bump (breaking changes)
+   - Everything else → Patch version bump (bug fixes, docs, etc.)
+
+2. **Built and published** to npm with the new version
+
+3. **Tagged** in git with the new version number
+
+### Commit Message Examples
+
+```bash
+# Patch version (1.0.0 → 1.0.1)
+git commit -m "fix: resolve layout inheritance issue"
+
+# Minor version (1.0.0 → 1.1.0)
+git commit -m "feat: add support for wildcard routes"
+# or
+git commit -m "fix: improve performance of route scanning [minor]"
+
+# Major version (1.0.0 → 2.0.0)
+git commit -m "feat: redesign API with BREAKING CHANGE"
+# or
+git commit -m "refactor: simplify API [major]"
+```
+
+### Setup for Contributors
+
+To enable automated publishing, the repository needs:
+
+1. **NPM_TOKEN** secret in GitHub repository settings
+   - Generate at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens)
+   - Add as repository secret at `Settings > Secrets and variables > Actions`
+
+2. **Repository permissions**
+   - Ensure Actions have write permissions to push version commits and tags
+   - Go to `Settings > Actions > General > Workflow permissions`
+
+### Manual Publishing
+
+If you need to publish manually:
+
+```bash
+npm run build
+npm version patch  # or minor/major
+npm publish
+git push --follow-tags
+```
