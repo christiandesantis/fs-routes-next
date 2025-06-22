@@ -19,6 +19,12 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Setup GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh auth status
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -45,9 +51,26 @@ jobs:
       - name: Bump version
         id: version
         if: steps.check_skip.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Check if this is a major, minor, or patch change based on commit messages
+          # Get the most recent commit message
           COMMIT_MSG=$(git log --format=%B -n 1)
+          
+          # Check if this is a merge commit and extract PR title if so
+          if echo "$COMMIT_MSG" | grep -q "^Merge pull request"; then
+            # Extract the PR title from GitHub API using the PR number
+            PR_NUMBER=$(echo "$COMMIT_MSG" | grep -o "#[0-9]\+" | sed 's/#//')
+            if [ ! -z "$PR_NUMBER" ]; then
+              PR_TITLE=$(gh pr view $PR_NUMBER --json title --jq '.title' 2>/dev/null || echo "")
+              if [ ! -z "$PR_TITLE" ]; then
+                echo "Using PR title for version bump: $PR_TITLE"
+                COMMIT_MSG="$PR_TITLE"
+              fi
+            fi
+          fi
+          
+          echo "Analyzing commit message: $COMMIT_MSG"
           
           if echo "$COMMIT_MSG" | grep -q "\[major\]" || echo "$COMMIT_MSG" | grep -q "BREAKING CHANGE"; then
             echo "Bumping major version"
