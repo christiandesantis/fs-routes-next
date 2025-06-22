@@ -55,8 +55,11 @@ jobs:
           elif echo "$COMMIT_MSG" | grep -q "\[minor\]" || echo "$COMMIT_MSG" | grep -q "feat:"; then
             echo "Bumping minor version"
             npm version minor --no-git-tag-version
+          elif echo "$COMMIT_MSG" | grep -q "\[patch\]"; then
+            echo "Bumping patch version (explicit)"
+            npm version patch --no-git-tag-version
           else
-            echo "Bumping patch version"
+            echo "Bumping patch version (default)"
             npm version patch --no-git-tag-version
           fi
           
