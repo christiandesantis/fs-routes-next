@@ -8,8 +8,8 @@ Enhanced file-based routing library for React Router 7+ with support for nested 
 ## Features
 
 - ✅ **Nested Directory Support**: Scan and generate routes from deeply nested folder structures
-- ✅ **Automatic Layout Inheritance**: Routes automatically inherit layouts based on directory prefixes
-- ✅ **Layout Overrides**: Support for layout overrides at any nesting level (e.g., `_another.tsx` only applies to specific routes)
+- ✅ **Automatic Layout Inheritance**: Routes automatically inherit layouts based on their parent directory
+- ✅ **Layout Overrides**: Support for layout overrides at any nesting level
 - ✅ **Pathless Layouts**: Root-level layouts that don't add route segments
 - ✅ **Conflict Resolution**: Intelligent handling of path conflicts and unique route ID generation
 - ✅ **TypeScript Support**: Fully typed with proper interfaces and type safety
@@ -33,17 +33,6 @@ or
 pnpm add fs-routes-next
 ```
 
-## Module Structure
-
-```
-fs-routes-next/
-├── index.ts           # Main orchestrator and public API
-├── types.ts           # TypeScript interfaces and types
-├── utils.ts           # Utility functions for route/layout processing
-├── scanner.ts         # Directory scanning and route discovery
-└── layout-resolver.ts # Layout hierarchy and resolution logic
-```
-
 ## Usage
 
 ```typescript
@@ -58,7 +47,8 @@ export default (await flatRoutes()) satisfies RouteConfig;
 
 ```
 routes/
-├── _app.tsx                   # Main app layout → "/"
+├── _index.tsx                 # Root page (no layout applied) → "/"
+├── _app.tsx                   # App layout
 ├── _app.dashboard/            # Dashboard routes
 │   ├── _users.tsx             # Layout override (only for users.tsx)
 │   ├── users.tsx              # Uses _users.tsx layout → "/dashboard/users"
@@ -103,6 +93,7 @@ This package uses automated publishing via GitHub Actions. When changes are push
 1. **Version bumped** based on commit message conventions:
    - `feat:` or `[minor]` → Minor version bump (new features)
    - `BREAKING CHANGE` or `[major]` → Major version bump (breaking changes)
+   - `[patch]` → Patch version bump (explicit)
    - Everything else → Patch version bump (bug fixes, docs, etc.)
 
 2. **Built and published** to npm with the new version
@@ -114,6 +105,8 @@ This package uses automated publishing via GitHub Actions. When changes are push
 ```bash
 # Patch version (1.0.0 → 1.0.1)
 git commit -m "fix: resolve layout inheritance issue"
+# or
+git commit -m "docs: update README with examples [patch]"
 
 # Minor version (1.0.0 → 1.1.0)
 git commit -m "feat: add support for wildcard routes"
@@ -126,42 +119,27 @@ git commit -m "feat: redesign API with BREAKING CHANGE"
 git commit -m "refactor: simplify API [major]"
 ```
 
-### Code Formatting & Linting
+### Code Formatting, Linting & Testing
 
-This project uses **Biome.js** for code formatting and linting. Before submitting any pull request, please ensure your code is properly formatted:
+This project uses **Biome.js** for code formatting and linting, and **Vitest** for testing. Before submitting any pull request, please ensure your code is properly formatted and all tests pass:
 
 ```bash
 # Format and fix all issues automatically
 npm run fix
 
-# Or use Biome commands directly
+# Run all tests
+npm test
+
+# Run tests in watch mode during development
+npm run test:watch
+
+# Or use the underlying tools directly
 npx biome check --write .  # Same as npm run fix
 npx biome format --write . # Format only
 npx biome lint .           # Lint only
 npx biome check .          # Check without fixing
+npx vitest                 # Run tests once
+npx vitest --ui            # Run tests with UI
 ```
 
-**⚠️ Important**: All PRs must pass formatting and linting checks. Please run `npm run fix` before committing your changes.
-
-### Setup for Contributors
-
-To enable automated publishing, the repository needs:
-
-1. **NPM_TOKEN** secret in GitHub repository settings
-   - Generate at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens)
-   - Add as repository secret at `Settings > Secrets and variables > Actions`
-
-2. **Repository permissions**
-   - Ensure Actions have write permissions to push version commits and tags
-   - Go to `Settings > Actions > General > Workflow permissions`
-
-### Manual Publishing
-
-If you need to publish manually:
-
-```bash
-npm run build
-npm version patch  # or minor/major
-npm publish
-git push --follow-tags
-```
+**⚠️ Important**: All PRs must pass formatting, linting, and testing checks. Please run `npm run fix` and `npm test` before committing your changes.
