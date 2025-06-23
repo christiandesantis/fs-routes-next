@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import type { LayoutInfo } from "../src/types";
+import type { LayoutInfo } from "../types";
 import {
 	generateRouteId,
 	getLayoutName,
 	shouldLayoutApplyToRoute,
-} from "../src/utils";
+} from "./index";
 
 describe("Utils", () => {
 	describe("generateRouteId", () => {

@@ -1,7 +1,7 @@
 import type { RouteConfigEntry } from "@react-router/dev/routes";
 import { route } from "@react-router/dev/routes";
-import type { LayoutInfo, ProcessedRoute } from "./types";
-import { findLayoutForRoute, generateRouteId } from "./utils";
+import type { LayoutInfo, ProcessedRoute } from "../types";
+import { findLayoutForRoute, generateRouteId } from "../utils";
 
 /**
  * Build layout hierarchy for nested routes with override support

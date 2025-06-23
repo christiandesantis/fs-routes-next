@@ -1,6 +1,6 @@
 import { readdirSync, statSync } from "fs";
 import { join } from "path";
-import type { RouteInfo } from "./types";
+import type { RouteInfo } from "../types";
 
 /**
  * Recursively scan directories for route files

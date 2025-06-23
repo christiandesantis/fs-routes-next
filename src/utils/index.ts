@@ -1,4 +1,4 @@
-import type { LayoutInfo } from "./types";
+import type { LayoutInfo } from "../types";
 
 /**
  * Generate unique route IDs for React Router
