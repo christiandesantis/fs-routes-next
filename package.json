@@ -1,6 +1,6 @@
 {
 	"name": "fs-routes-next",
-	"version": "1.3.0",
+	"version": "2.0.0",
 	"description": "Enhanced file-based routing for React Router 7+ with nested directories, automatic layout inheritance, and layout overrides",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
