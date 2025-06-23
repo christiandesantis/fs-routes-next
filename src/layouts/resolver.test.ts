@@ -1,6 +1,7 @@
+import type { RouteConfigEntry } from "@react-router/dev/routes";
 import { describe, expect, it } from "vitest";
-import { buildLayoutHierarchy } from "../src/layout-resolver";
-import type { LayoutInfo, ProcessedRoute } from "../src/types";
+import type { LayoutInfo, ProcessedRoute } from "../types";
+import { buildLayoutHierarchy } from "./resolver";
 
 describe("Layout Resolver", () => {
 	describe("buildLayoutHierarchy", () => {
@@ -15,7 +16,7 @@ describe("Layout Resolver", () => {
 				},
 			];
 
-			const existingRoutes = [];
+			const existingRoutes: RouteConfigEntry[] = [];
 
 			const layoutsByPath = new Map<string, LayoutInfo>([
 				[
@@ -56,7 +57,7 @@ describe("Layout Resolver", () => {
 				},
 			];
 
-			const existingRoutes = [];
+			const existingRoutes: RouteConfigEntry[] = [];
 			const layoutsByPath = new Map<string, LayoutInfo>();
 
 			const hierarchy = buildLayoutHierarchy(
@@ -86,7 +87,7 @@ describe("Layout Resolver", () => {
 				},
 			];
 
-			const existingRoutes = [];
+			const existingRoutes: RouteConfigEntry[] = [];
 			const layoutsByPath = new Map<string, LayoutInfo>();
 
 			const hierarchy = buildLayoutHierarchy(

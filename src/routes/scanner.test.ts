@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { scanDirectory, scanNestedRoutes } from "../src/scanner";
+import { scanDirectory, scanNestedRoutes } from "./scanner";
 
 describe("Scanner", () => {
 	describe("scanDirectory", () => {

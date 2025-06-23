@@ -3,20 +3,20 @@ import { describe, expect, it } from "vitest";
 describe("Integration Tests", () => {
 	describe("Package Structure", () => {
 		it("should export main functions", async () => {
-			const { flatRoutes } = await import("../src/index");
+			const { flatRoutes } = await import("./index");
 
 			expect(typeof flatRoutes).toBe("function");
 		});
 
 		it("should export types", async () => {
-			const types = await import("../src/types");
+			const types = await import("./types");
 
 			expect(types).toBeDefined();
 		});
 
 		it("should have scanner functions", async () => {
 			const { scanDirectory, scanNestedRoutes } = await import(
-				"../src/scanner"
+				"./routes/scanner"
 			);
 
 			expect(typeof scanDirectory).toBe("function");
@@ -24,14 +24,14 @@ describe("Integration Tests", () => {
 		});
 
 		it("should have utils functions", async () => {
-			const { generateRouteId, getLayoutName } = await import("../src/utils");
+			const { generateRouteId, getLayoutName } = await import("./utils");
 
 			expect(typeof generateRouteId).toBe("function");
 			expect(typeof getLayoutName).toBe("function");
 		});
 
 		it("should have layout resolver", async () => {
-			const { buildLayoutHierarchy } = await import("../src/layout-resolver");
+			const { buildLayoutHierarchy } = await import("./layouts/resolver");
 
 			expect(typeof buildLayoutHierarchy).toBe("function");
 		});

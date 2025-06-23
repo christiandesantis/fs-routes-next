@@ -1,10 +1,4 @@
 import { vol } from "memfs";
-import { beforeEach } from "vitest";
-
-// Setup memfs before each test
-beforeEach(() => {
-	vol.reset();
-});
 
 /**
  * Creates a mock file system structure for testing
@@ -55,8 +49,10 @@ import { Outlet } from "@react-router/react";
 export default function Layout() {
   return (
     <div>
-      <h1>Layout</h1>
-      <Outlet />
+      <nav>Navigation</nav>
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 }
